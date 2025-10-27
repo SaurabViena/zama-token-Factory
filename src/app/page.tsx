@@ -2,6 +2,7 @@
 
 import { useMemo, useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useReadContract, useReadContracts } from "wagmi";
 import { TokenFactoryABI, ConfidentialMintableTokenABI, PublicMintableTokenABI } from "@/config/abi";
 
@@ -82,8 +83,7 @@ function TokenRow({ t, progressPct }: { t: TokenInfo; progressPct?: number }) {
       <div className="flex items-center gap-3 min-w-0">
         <div className="h-9 w-9 rounded-full overflow-hidden bg-foreground/10">
           {iconUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={iconUrl} alt="icon" className="w-full h-full object-cover" />
+            <Image src={iconUrl} alt="icon" width={36} height={36} className="w-full h-full object-cover" />
           ) : (
             <div className="w-full h-full" />
           )}

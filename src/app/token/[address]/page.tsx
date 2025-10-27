@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useAccount, useReadContract, useReadContracts, useWriteContract } from "wagmi";
 import { ConfidentialMintableTokenABI, PublicMintableTokenABI, TokenFactoryABI } from "@/config/abi";
@@ -136,7 +137,7 @@ export default function TokenDetailPage() {
 
         <div className="flex items-center gap-3 mb-4">
           <div className="w-12 h-12 rounded-full overflow-hidden bg-foreground/10">
-            {iconUrl ? <img src={iconUrl} alt="icon" className="w-full h-full object-cover" /> : <div className="w-full h-full" />}
+            {iconUrl ? <Image src={iconUrl} alt="icon" width={48} height={48} className="w-full h-full object-cover" /> : <div className="w-full h-full" />}
           </div>
           <div>
             <div className="text-lg font-semibold">{(cName.data as string) || "--"}</div>
