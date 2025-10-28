@@ -114,3 +114,30 @@ body::before {
 .animate-bounce-slow {
   animation: bounce-slow 3s ease-in-out infinite;
 }
+
+/* Custom scrollbar styles */
+.scrollbar-thin {
+  scrollbar-width: thin;
+}
+
+.scrollbar-track-transparent {
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+.scrollbar-thumb-white\/20::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-thumb-white\/20::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thumb-white\/20::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+  transition: background-color 0.2s ease;
+}
+
+.scrollbar-thumb-white\/20:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+}

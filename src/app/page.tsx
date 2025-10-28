@@ -118,12 +118,15 @@ function TokenRow({ t, progressPct }: { t: TokenInfo; progressPct?: number }) {
 function Section({ title, items, loading }: { title: string; items?: TokenInfo[]; loading?: boolean }) {
   const count = items?.length ?? 0;
   const placeholders = loading ? 6 : Math.max(0, 6 - count);
+  const displayItems = items?.slice(0, 10) || [];
   return (
     <section className="rounded-2xl border border-white/10 bg-foreground/[0.02] p-4">
       <h3 className="text-sm font-medium mb-3 tracking-tight">{title}</h3>
-      <div className="space-y-3">
-        {!loading && items && count > 0 && items.map((t, idx) => <TokenRow key={String(idx) + t.token} t={t} progressPct={(t as unknown as TokenInfo & { progressPct?: number }).progressPct} />)}
-        {Array.from({ length: placeholders }).map((_, idx) => <SkeletonItem key={`ph-${idx}`} />)}
+      <div className="max-h-[480px] overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white/20">
+        <div className="space-y-3 pr-1">
+          {!loading && displayItems.length > 0 && displayItems.map((t, idx) => <TokenRow key={String(idx) + t.token} t={t} progressPct={(t as unknown as TokenInfo & { progressPct?: number }).progressPct} />)}
+          {Array.from({ length: placeholders }).map((_, idx) => <SkeletonItem key={`ph-${idx}`} />)}
+        </div>
       </div>
     </section>
   );
