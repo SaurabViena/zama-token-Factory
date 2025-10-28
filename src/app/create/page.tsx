@@ -2,6 +2,8 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useAccount, useWriteContract } from "wagmi";
 import { TokenFactoryABI } from "@/config/abi";
 
@@ -20,6 +22,7 @@ function Field({ label, required, children }: { label: string; required?: boolea
 }
 
 export default function CreateTokenPage() {
+  const router = useRouter();
   const { isConnected } = useAccount();
   const { writeContractAsync, isPending } = useWriteContract();
 
@@ -107,7 +110,7 @@ export default function CreateTokenPage() {
         }
       }
 
-      const txHash = await writeContractAsync({
+      await writeContractAsync({
         abi: TokenFactoryABI as unknown as import("viem").Abi,
         address: FACTORY_ADDRESS,
         functionName: "createToken",
@@ -125,7 +128,11 @@ export default function CreateTokenPage() {
           Boolean(renounceOnCreation),
         ],
       });
-      showToast("Transaction sent: " + String(txHash).slice(0, 10) + "…");
+      showToast("Token created successfully!");
+      setTimeout(() => {
+        router.push("/");
+        window.location.reload();
+      }, 1000);
     } catch (err) {
       const message = (err as Error)?.message || "Submission failed";
       showToast(message);
@@ -185,7 +192,7 @@ export default function CreateTokenPage() {
               }`}
             >
               {iconPreview ? (
-                <img src={iconPreview} alt="preview" className="w-full h-full object-cover" />
+                <Image src={iconPreview} alt="preview" width={80} height={80} className="w-full h-full object-cover" />
               ) : (
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-foreground/60">
                   <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.5" />

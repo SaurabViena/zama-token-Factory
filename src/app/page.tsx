@@ -236,7 +236,7 @@ export default function Home() {
   }, [newestItems, progressMap]);
   const soaringItems = useMemo(() => {
     const list = [...newestWithProgress];
-    list.sort((a, b) => b.publicMintBps - a.publicMintBps);
+    list.sort((a, b) => (b.progressPct || 0) - (a.progressPct || 0));
     return list;
   }, [newestWithProgress]);
 
