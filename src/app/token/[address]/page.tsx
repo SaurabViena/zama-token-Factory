@@ -135,16 +135,37 @@ export default function TokenDetailPage() {
           Back to Home
         </Link>
 
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-12 h-12 rounded-full overflow-hidden bg-foreground/10">
-            {iconUrl ? <Image src={iconUrl} alt="icon" width={48} height={48} className="w-full h-full object-cover" /> : 
-            <div className="w-full h-full bg-gradient-to-br from-sky-400 to-blue-500 flex items-center justify-center text-white font-semibold text-lg">
-              {((cName.data as string) || "").charAt(0)}
-            </div>}
+        <div className="flex items-center justify-between gap-3 mb-4">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-full overflow-hidden bg-foreground/10">
+              {iconUrl ? <Image src={iconUrl} alt="icon" width={48} height={48} className="w-full h-full object-cover" /> : 
+              <div className="w-full h-full bg-gradient-to-br from-sky-400 to-blue-500 flex items-center justify-center text-white font-semibold text-lg">
+                {((cName.data as string) || "").charAt(0)}
+              </div>}
+            </div>
+            <div>
+              <div className="text-lg font-semibold">{(cName.data as string) || "--"}</div>
+              <div className="text-sm text-foreground/60">{(cSymbol.data as string) || "--"}</div>
+            </div>
           </div>
-          <div>
-            <div className="text-lg font-semibold">{(cName.data as string) || "--"}</div>
-            <div className="text-sm text-foreground/60">{(cSymbol.data as string) || "--"}</div>
+          <div className="text-right">
+            <div className="text-xs text-foreground/60 mb-1">Contract Address</div>
+            <button
+            onClick={() => {
+              navigator.clipboard.writeText(address);
+              showToast("Contract address copied");
+            }}
+            className="flex items-center gap-2 px-3 py-2 rounded-lg bg-foreground/[0.05] hover:bg-foreground/[0.08] transition-colors group"
+            title={address}
+          >
+            <span className="text-sm font-mono text-foreground/80">
+              {address.slice(0, 6)}...{address.slice(-4)}
+            </span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-foreground/60 group-hover:text-foreground/80 transition-colors">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            </button>
           </div>
         </div>
 
@@ -190,7 +211,6 @@ export default function TokenDetailPage() {
               ? <a className="underline underline-offset-2" href={`https://sepolia.etherscan.io/address/${displayCreator}`} target="_blank" rel="noreferrer">{displayCreator}</a>
               : (cCreator.data === zeroAddr ? "Renounced" : "--")
           } />
-          <StatRow label="Contract Address" value={<a className="underline underline-offset-2" href={`https://sepolia.etherscan.io/address/${address}`} target="_blank" rel="noreferrer">{address}</a>} />
         </div>
 
         {/* Enlarge button and center */}
