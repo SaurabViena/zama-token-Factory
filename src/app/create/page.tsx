@@ -131,7 +131,6 @@ export default function CreateTokenPage() {
       showToast("Token created successfully!");
       setTimeout(() => {
         router.push("/");
-        window.location.reload();
       }, 1000);
     } catch (err) {
       const message = (err as Error)?.message || "Submission failed";
