@@ -137,7 +137,10 @@ export default function TokenDetailPage() {
 
         <div className="flex items-center gap-3 mb-4">
           <div className="w-12 h-12 rounded-full overflow-hidden bg-foreground/10">
-            {iconUrl ? <Image src={iconUrl} alt="icon" width={48} height={48} className="w-full h-full object-cover" /> : <div className="w-full h-full" />}
+            {iconUrl ? <Image src={iconUrl} alt="icon" width={48} height={48} className="w-full h-full object-cover" /> : 
+            <div className="w-full h-full bg-gradient-to-br from-sky-400 to-blue-500 flex items-center justify-center text-white font-semibold text-lg">
+              {((cName.data as string) || "").charAt(0)}
+            </div>}
           </div>
           <div>
             <div className="text-lg font-semibold">{(cName.data as string) || "--"}</div>

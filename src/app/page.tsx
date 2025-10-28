@@ -85,7 +85,9 @@ function TokenRow({ t, progressPct }: { t: TokenInfo; progressPct?: number }) {
           {iconUrl ? (
             <Image src={iconUrl} alt="icon" width={36} height={36} className="w-full h-full object-cover" />
           ) : (
-            <div className="w-full h-full" />
+            <div className="w-full h-full bg-gradient-to-br from-sky-400 to-blue-500 flex items-center justify-center text-white font-semibold text-sm">
+              {t.name.charAt(0)}
+            </div>
           )}
         </div>
         <div className="min-w-0">

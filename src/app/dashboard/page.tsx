@@ -391,7 +391,9 @@ export default function DashboardPage() {
                       className="h-12 w-12 flex-shrink-0 rounded-full object-cover"
                     />
                   ) : (
-                    <div className="h-12 w-12 flex-shrink-0 rounded-full bg-gradient-to-br from-sky-400 to-blue-500" />
+                    <div className="h-12 w-12 flex-shrink-0 rounded-full bg-gradient-to-br from-sky-400 to-blue-500 flex items-center justify-center text-white font-semibold text-lg">
+                      {token.name.charAt(0)}
+                    </div>
                   )}
                   <div className="flex-1 min-w-0">
                     <h3 className="text-base font-semibold truncate">{token.name}</h3>
