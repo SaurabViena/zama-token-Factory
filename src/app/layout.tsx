@@ -36,26 +36,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* Only keep ESM approach to avoid cross-origin embedded resource issues from UMD */}
-        <Script id="zama-esm-bridge" type="module" strategy="afterInteractive">
-          {`
-            (async () => {
-              try {
-                // Preserve existing UMD global if already present
-                if (!window.ZamaRelayerSDK) {
-                  const mod = await import('https://cdn.zama.ai/relayer-sdk-js/0.2.0/relayer-sdk-js.js');
-                  const { initSDK, createInstance, SepoliaConfig } = mod;
-                  window.ZamaRelayerSDK = { initSDK, createInstance, SepoliaConfig };
-                }
-              } catch (e) {
-                // Only output in development mode to avoid polluting production logs
-                if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV !== 'production') {
-                  console.error('Zama ESM bridge failed:', e);
-                }
-              }
-            })();
-          `}
-        </Script>
+        <Script src="https://cdn.zama.org/relayer-sdk-js/0.2.0/relayer-sdk-js.umd.cjs" strategy="afterInteractive" />
         <Providers>
           <div className="min-h-dvh flex flex-col">
             <header className="w-full px-6 py-3">
