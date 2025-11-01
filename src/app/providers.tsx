@@ -43,6 +43,7 @@ const connectors = connectorsForWallets(
 export const wagmiConfig = createConfig({
   connectors,
   chains: [sepolia],
+  batch: { multicall: true },
   transports: {
     [sepolia.id]: (() => {
       const rpc = (process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL || "").trim();
@@ -78,6 +79,17 @@ export default function Providers({ children }: PropsWithChildren) {
         <ZamaStatusContext.Provider value={{ ready, error }}>
           <RainbowKitProvider theme={lightTheme({ accentColor: "#0ea5e9" })} modalSize="compact">
             {children}
+            {!ready && !error && (
+              <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
+                <div className="flex flex-col items-center gap-4">
+                  <div className="relative h-14 w-14">
+                    <div className="absolute inset-0 rounded-full border-2 border-white/20" />
+                    <div className="absolute inset-0 rounded-full border-2 border-t-transparent border-sky-400 animate-spin" />
+                  </div>
+                  <div className="text-sm text-white/90">Initializing FHE environment…</div>
+                </div>
+              </div>
+            )}
             {error && (
               <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
                 <div className="mx-4 max-w-md rounded-lg bg-white p-6 shadow-2xl">
