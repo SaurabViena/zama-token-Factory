@@ -36,7 +36,22 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Script src="https://cdn.zama.org/relayer-sdk-js/0.2.0/relayer-sdk-js.umd.cjs" strategy="afterInteractive" />
+        <Script id="zama-sdk-init" strategy="afterInteractive">
+          {`
+            (async () => {
+              try {
+                if (!window.ZamaRelayerSDK && !window.fhevm) {
+                  const mod = await import('https://cdn.zama.org/relayer-sdk-js/0.2.0/relayer-sdk-js.js');
+                  const { initSDK, createInstance, SepoliaConfig } = mod;
+                  window.ZamaRelayerSDK = { initSDK, createInstance, SepoliaConfig };
+                  console.log('Zama SDK loaded successfully');
+                }
+              } catch (e) {
+                console.error('Failed to load Zama SDK:', e);
+              }
+            })();
+          `}
+        </Script>
         <Providers>
           <div className="min-h-dvh flex flex-col">
             <header className="w-full px-6 py-3">
