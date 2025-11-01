@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Zama Token Factory - Create Confidential Tokens",
+  title: "Confidential Token Factory - Create Confidential Tokens",
   description: "Create Zama confidential tokens effortlessly. Private transactions, secure and reliable.",
   icons: {
     icon: "/favicon.svg",
@@ -88,7 +88,7 @@ export default function RootLayout({
                         <circle cx="5.5" cy="5.5" r="1" fill="#22C55E" opacity="0.6"/>
                       </g>
                     </svg>
-                    <span>Zama Token Factory</span>
+                    <span>Confidential Token Factory</span>
                   </Link>
                 </div>
                 <div className="flex justify-center">
