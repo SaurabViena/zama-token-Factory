@@ -4,7 +4,7 @@ import { useMemo, useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useReadContract, useReadContracts } from "wagmi";
-import { TokenFactoryABI, ConfidentialMintableTokenABI, PublicMintableTokenABI } from "@/config/abi";
+import { TokenFactoryABI, ConfidentialMintableTokenABI } from "@/config/abi";
 
 const FACTORY_ADDRESS = process.env.NEXT_PUBLIC_FACTORY_ADDRESS as `0x${string}` | undefined;
 
@@ -202,10 +202,11 @@ export default function Home() {
   const tokenAddrs = newestItems.map((t) => t.token as `0x${string}`);
 
   const mintedReads = useReadContracts({
-    contracts: tokenAddrs.flatMap((addr) => [
-      { abi: ConfidentialMintableTokenABI as unknown as import("viem").Abi, address: addr, functionName: "totalMinted" as const },
-      { abi: PublicMintableTokenABI as unknown as import("viem").Abi, address: addr, functionName: "totalSupply" as const },
-    ]),
+    contracts: tokenAddrs.map((addr) => ({
+      abi: ConfidentialMintableTokenABI as unknown as import("viem").Abi,
+      address: addr,
+      functionName: "totalMinted" as const,
+    })),
     query: {
       enabled: tokenAddrs.length > 0,
       staleTime: Infinity,
@@ -222,13 +223,11 @@ export default function Home() {
     const data = mintedReads.data as Array<{ result?: unknown } | undefined> | undefined;
     if (!data) return res;
     for (let i = 0; i < tokenAddrs.length; i++) {
-      const a = data[i * 2]?.result as unknown;
-      const b = data[i * 2 + 1]?.result as unknown;
-      const minted = typeof a === "bigint" ? a : typeof b === "bigint" ? b : undefined;
+      const minted = data[i]?.result as unknown;
       if (minted !== undefined) {
         const max = newestItems[i]?.maxSupply;
         if (typeof max === "bigint" && max > BigInt(0)) {
-          const pct = Number(minted) / Number(max) * 100;
+          const pct = Number(minted as bigint) / Number(max) * 100;
           res.set(tokenAddrs[i], Math.max(0, Math.min(100, pct)));
         }
       }
