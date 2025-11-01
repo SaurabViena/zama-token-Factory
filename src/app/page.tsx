@@ -254,7 +254,7 @@ export default function Home() {
             <path d="M10 2L12.5 7.5L18 8.5L14 13L15 18.5L10 15.5L5 18.5L6 13L2 8.5L7.5 7.5L10 2Z" fill="currentColor" fillOpacity="0.2" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
           </svg>
           <span className="text-lg md:text-xl font-semibold bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent tracking-tight animate-gradient bg-[length:200%_auto] min-h-[1.75rem] inline-block">
-            <TypewriterText text="Create Zama Confidential Tokens Effortlessly" delay={60} />
+            <TypewriterText text="Create Confidential Tokens Effortlessly" delay={60} />
           </span>
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="text-cyan-400 animate-pulse">
             <path d="M10 2L12.5 7.5L18 8.5L14 13L15 18.5L10 15.5L5 18.5L6 13L2 8.5L7.5 7.5L10 2Z" fill="currentColor" fillOpacity="0.2" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
